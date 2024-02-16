@@ -3,27 +3,23 @@ const Bookmark = require('../../models/bookmark')
 
 module.exports = {
     create,
-    indexComplete,
-    indexNotComplete,
-    show,
+    index,
     update,
     destroy,
-    jsonTodos,
-    jsonTodo
+    jsonBookmarks,
+    jsonBookmark
 }
 
-// jsonTodos jsonTodo
-// viewControllers
-
+//json
 function jsonBookmark (_, res) {
     res.json(res.locals.data.bookmark)
 }
 
-function jsonBookmark (_, res) {
+function jsonBookmarks (_, res) {
     res.json(res.locals.data.boommark)
 }
 
-/****** C - Create *******/
+//CREATE
 async function create(req, res, next){
     try {
         const bookmark = await Bookmark.create(req.body)
@@ -35,9 +31,8 @@ async function create(req, res, next){
     }
 }
 
-/****** R - Read *****/
-
-async function indexComplete(_, res ,next) {
+//READ
+async function index(_, res ,next) {
     try {
         const bookmarks = await Bookmark.find({ completed: true })
         res.locals.data.bookmarks = bookmarks
@@ -47,31 +42,7 @@ async function indexComplete(_, res ,next) {
     }
 }
 
-async function indexNotComplete(_ ,res,next) {
-    try {
-        const bookmarks = await Bookmark.find({ completed: false })
-        res.locals.data.bookmarks = bookmarks
-        next()
-    } catch (error) {
-        res.status(400).json({ msg: error.message })
-    }
-}
-
-
-async function show(req ,res,next) {
-    try {
-        const bookmark = await Bookmark.findById(req.params.id)
-        res.locals.data.bookmark = bookmark
-        next()
-    } catch (error) {
-        res.status(400).json({ msg: error.message })
-    }
-}
-
-
-/****** U - Update *****/
-
-
+//UPDATE
 async function update(req ,res,next) {
     try {
         const bookmark = await Bookmark.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -82,8 +53,7 @@ async function update(req ,res,next) {
     }
 }
 
-/***** D - destroy/delete *****/
-
+//DESTROY
 async function destroy(req ,res,next) {
     try {
         const bookmark = await Bookmark.findByIdAndDelete(req.params.id)

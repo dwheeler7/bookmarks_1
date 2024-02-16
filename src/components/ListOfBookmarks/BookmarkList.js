@@ -1,14 +1,12 @@
-import styles from './TodoList.module.scss'
-import Todo from '../Todo/Todo'
+import styles from './BookmarkList.module.scss'
+import Bookmark from '../Bookmark/Bookmark'
  
 export default function TodoList ({ 
-    newTodo, 
-    createTodo, 
-    setNewTodo, 
-    todos,
-    completedTodos,
-    moveToCompleted,
-    deleteTodo
+    newBookmark, 
+    createBookmark, 
+    setNewBookmark, 
+    bookmarks,
+    deleteBookmark
 }){
     return(
         <div className={styles.todolist}>
