@@ -33,7 +33,6 @@ export default function App(){
         }
     }
 
-    // UpdateBookmark
     const updateBookmark = async (id, bookmarkToUpdate) => {
         console.log(id, bookmarkToUpdate)
         const body = { ...bookmarkToUpdate }
@@ -59,7 +58,6 @@ export default function App(){
         }
     }
 
-    //deleteBookmarks
     const deleteBookmark = async (id) => {
         try {
             const index = bookmarks.findIndex((bookmark) => bookmark._id === id)
@@ -78,8 +76,7 @@ export default function App(){
         }
     }
     
-    //moveToCompleted
-    const moveToCompleted = async (id) => {
+    const moveMark = async (id) => {
         try {
             const index = bookmarks.findIndex((bookmark) => bookmark._id === id)
             const bookmarksCopy = [...bookmarks]
@@ -100,7 +97,7 @@ export default function App(){
             console.error(error)
         }
     }
-    //getBookmarks
+
     const getBookmarks = async () => {
         try{
             const response = await fetch('/api/bookmarks')
@@ -124,7 +121,7 @@ export default function App(){
                 createBookmark={createBookmark}
                 bookmarks={bookmarks}
                 updateBookmark={updateBookmark}
-                moveToCompleted={moveToCompleted}
+                moveMark={moveMark}
                 completedBookmarks={completedBookmarks}
                 deleteBookmark={deleteBookmark}
             />

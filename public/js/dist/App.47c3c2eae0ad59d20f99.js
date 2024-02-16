@@ -52,8 +52,6 @@ function App() {
       console.error(error);
     }
   };
-
-  // UpdateBookmark
   const updateBookmark = async (id, bookmarkToUpdate) => {
     console.log(id, bookmarkToUpdate);
     const body = _objectSpread({}, bookmarkToUpdate);
@@ -81,8 +79,6 @@ function App() {
       console.error(error);
     }
   };
-
-  //deleteBookmarks
   const deleteBookmark = async id => {
     try {
       const index = bookmarks.findIndex(bookmark => bookmark._id === id);
@@ -100,9 +96,7 @@ function App() {
       console.error(error);
     }
   };
-
-  //moveToCompleted
-  const moveToCompleted = async id => {
+  const moveMark = async id => {
     try {
       const index = bookmarks.findIndex(bookmark => bookmark._id === id);
       const bookmarksCopy = [...bookmarks];
@@ -123,7 +117,6 @@ function App() {
       console.error(error);
     }
   };
-  //getBookmarks
   const getBookmarks = async () => {
     try {
       const response = await fetch('/api/bookmarks');
@@ -147,7 +140,7 @@ function App() {
     createBookmark: createBookmark,
     bookmarks: bookmarks,
     updateBookmark: updateBookmark,
-    moveToCompleted: moveToCompleted,
+    moveMark: moveMark,
     completedBookmarks: completedBookmarks,
     deleteBookmark: deleteBookmark
   }));
@@ -265,12 +258,16 @@ function BookmarkList(_ref) {
     setNewBookmark,
     bookmarks,
     deleteBookmark,
-    updateBookmark
+    updateBookmark,
+    moveMark
   } = _ref;
   function handleCreateBookmark() {
     if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
       createBookmark();
     }
+  }
+  function handleMoveMark(id) {
+    moveMark(id);
   }
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "BOOKMARKS PART 1"), /*#__PURE__*/React.createElement("div", {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].container
@@ -286,13 +283,13 @@ function BookmarkList(_ref) {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].input,
     type: "text",
     value: newBookmark.title,
-    onChange: e => {
-      setNewBookmark(_objectSpread(_objectSpread({}, newBookmark), {}, {
-        title: e.target.value
-      }));
-    },
+    onChange: e => setNewBookmark(_objectSpread(_objectSpread({}, newBookmark), {}, {
+      title: e.target.value
+    })),
     onKeyDown: e => {
-      e.key === 'Enter' && handleCreateBookmark();
+      if (e.key === 'Enter') {
+        handleCreateBookmark();
+      }
     }
   })), /*#__PURE__*/React.createElement("div", {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].urlInputContainer
@@ -302,13 +299,13 @@ function BookmarkList(_ref) {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].input,
     type: "text",
     value: newBookmark.url ? newBookmark.url : 'https://',
-    onChange: e => {
-      setNewBookmark(_objectSpread(_objectSpread({}, newBookmark), {}, {
-        url: e.target.value
-      }));
-    },
+    onChange: e => setNewBookmark(_objectSpread(_objectSpread({}, newBookmark), {}, {
+      url: e.target.value
+    })),
     onKeyDown: e => {
-      e.key === 'Enter' && handleCreateBookmark();
+      if (e.key === 'Enter') {
+        handleCreateBookmark();
+      }
     }
   }))), /*#__PURE__*/React.createElement("div", {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].bookmarksContainer
@@ -318,7 +315,8 @@ function BookmarkList(_ref) {
     key: bookmark._id,
     bookmark: bookmark,
     deleteAction: deleteBookmark,
-    updateBookmark: updateBookmark
+    updateBookmark: updateBookmark,
+    moveMark: handleMoveMark
   }))))));
 }
 
@@ -805,4 +803,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.0afa2e4a50d07cee208e3510743579d2.js.map
+//# sourceMappingURL=App.97ae05d1d926c55c2e952d0a90397192.js.map
