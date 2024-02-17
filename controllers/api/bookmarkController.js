@@ -12,11 +12,11 @@ module.exports = {
 
 // jsonBookmarks jsonBookmark
 // viewControllers
-function jsonBookmark (_, res) {
+function jsonBookmark(res) {
     res.json(res.locals.data.bookmark)
 }
 
-function jsonBookmarks (_, res) {
+function jsonBookmarks(res) {
     res.json(res.locals.data.bookmarks)
 }
 
@@ -28,40 +28,44 @@ async function create(req, res, next){
         res.locals.data.bookmark = bookmark
         next()
     } catch (error) {
+        console.error('Error:', error)
         res.status(400).json({ msg: error.message })
     }
 }
 
 /****** R - Read *****/
-async function index(_ ,res,next) {
+async function index(_, res, next) {
     try {
         const bookmarks = await Bookmark.find({})
         res.locals.data.bookmarks = bookmarks
         next()
     } catch (error) {
+        console.error('Error:', error)
         res.status(400).json({ msg: error.message })
     }
 }
 
 
 /****** U - Update *****/
-async function update(req ,res, next) {
+async function update(req, res, next) {
     try {
         const bookmark = await Bookmark.findByIdAndUpdate(req.params.id, req.body, { new: true })
         res.locals.data.bookmark = bookmark
         next()
     } catch (error) {
+        console.error('Error:', error)
         res.status(400).json({ msg: error.message })
     }
 }
 
 /***** D - destroy/delete *****/
-async function destroy(req ,res,next) {
+async function destroy(req, res, next) {
     try {
         const bookmark = await Bookmark.findByIdAndDelete(req.params.id)
         res.locals.data.bookmark = bookmark
         next()
     } catch (error) {
+        console.error('Error:', error)
         res.status(400).json({ msg: error.message })
     }
 }
