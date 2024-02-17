@@ -13,9 +13,8 @@ class Test {
     });
   }
 }
-// test
 const test = new Test();
 test.main();
 /******/ })()
 ;
-//# sourceMappingURL=main.2078ee7517241ac7448fbff582e90248.js.map
+//# sourceMappingURL=main.11c0b26482a07c19183da803f5e34de0.js.map

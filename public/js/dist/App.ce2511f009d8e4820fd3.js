@@ -26,7 +26,7 @@ function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = 
 
 function App() {
   const [bookmarks, setBookmarks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [completedBookmarks, setCompletedBookmarks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [addedBookmarks, setAddedBookmarks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [newBookmark, setNewBookmark] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     title: '',
     url: ''
@@ -53,7 +53,6 @@ function App() {
     }
   };
   const updateBookmark = async (id, bookmarkToUpdate) => {
-    console.log(id, bookmarkToUpdate);
     const body = _objectSpread({}, bookmarkToUpdate);
     try {
       const response = await fetch("/api/bookmarks/".concat(id), {
@@ -81,38 +80,32 @@ function App() {
   };
   const deleteBookmark = async id => {
     try {
-      const index = bookmarks.findIndex(bookmark => bookmark._id === id);
-      const bookmarksCopy = [...bookmarks];
       const response = await fetch("/api/bookmarks/".concat(id), {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      await response.json();
-      bookmarksCopy.splice(index, 1);
-      setBookmarks(bookmarksCopy);
+      if (response.ok) {
+        setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
   };
   const moveMark = async id => {
     try {
-      const index = bookmarks.findIndex(bookmark => bookmark._id === id);
-      const bookmarksCopy = [...bookmarks];
-      const subject = bookmarksCopy[index];
-      const response = await fetch("/api/bookmarks/".concat(id), {
+      const response = await fetch("/api/bookmarks/".concat(id, "/move"), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(subject)
+        }
       });
-      const updatedBookmark = await response.json();
-      const completedBMsCopy = [updatedBookmark, ...completedBookmarks];
-      setCompletedBookmarks(completedBMsCopy);
-      bookmarksCopy.splice(index, 1);
-      setBookmarks(bookmarksCopy);
+      if (response.ok) {
+        const movedBookmark = bookmarks.find(bookmark => bookmark._id === id);
+        setAddedBookmarks([movedBookmark, ...addedBookmarks]);
+        setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -120,11 +113,11 @@ function App() {
   const getBookmarks = async () => {
     try {
       const response = await fetch('/api/bookmarks');
-      const foundBookmarks = await response.json();
-      setBookmarks(foundBookmarks.reverse());
-      const responseTwo = await fetch('/api/bookmarks/completed');
-      const foundCompletedBookmarks = await responseTwo.json();
-      setCompletedBookmarks(foundCompletedBookmarks.reverse());
+      const data = await response.json();
+      setBookmarks(data.bookmarks.reverse());
+      const responseTwo = await fetch('/api/bookmarks/added');
+      const addedData = await responseTwo.json();
+      setAddedBookmarks(addedData.reverse());
     } catch (error) {
       console.error(error);
     }
@@ -141,7 +134,7 @@ function App() {
     bookmarks: bookmarks,
     updateBookmark: updateBookmark,
     moveMark: moveMark,
-    completedBookmarks: completedBookmarks,
+    addedBookmarks: addedBookmarks,
     deleteBookmark: deleteBookmark
   }));
 }
@@ -803,4 +796,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.97ae05d1d926c55c2e952d0a90397192.js.map
+//# sourceMappingURL=App.5a1c6ad7407c77227d2a820e589da0e3.js.map

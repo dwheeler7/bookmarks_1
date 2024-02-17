@@ -6,9 +6,9 @@ const Bookmark = ({ bookmark, deleteMark, updateMark }) => {
     const [url, setUrl] = useState(bookmark.url)
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         if (name === 'title') {
-            setTitle(value);
+            setTitle(value)
         } else if (name === 'url') {
             setUrl(value)
         }

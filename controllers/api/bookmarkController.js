@@ -16,7 +16,7 @@ function jsonBookmark (_, res) {
 }
 
 function jsonBookmarks (_, res) {
-    res.json(res.locals.data.boommark)
+    res.json(res.locals.data.bookmark)
 }
 
 //CREATE

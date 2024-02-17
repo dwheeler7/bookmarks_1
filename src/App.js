@@ -2,17 +2,16 @@ import { useState, useEffect } from 'react'
 import BookmarkList from './components/ListOfBookmarks/BookmarkList'
 import styles from './App.module.scss'
 
-
-export default function App(){
+export default function App() {
     const [bookmarks, setBookmarks] = useState([])
-    const [completedBookmarks, setCompletedBookmarks] = useState([])
+    const [addedBookmarks, setAddedBookmarks] = useState([])
     const [newBookmark, setNewBookmark] = useState({
         title: '',
         url: ''
     })
 
     const createBookmark = async () => {
-        const body = {...newBookmark}
+        const body = { ...newBookmark }
         try {
             const response = await fetch('/api/bookmarks', {
                 method: 'POST',
@@ -22,19 +21,15 @@ export default function App(){
                 body: JSON.stringify(body)
             })
             const createdBookmark = await response.json()
-            const bookmarksCopy = [createdBookmark,...bookmarks]
+            const bookmarksCopy = [createdBookmark, ...bookmarks]
             setBookmarks(bookmarksCopy)
-            setNewBookmark({
-                title: '',
-                url: ''
-            })
-        } catch (error) {   
+            setNewBookmark({ title: '', url: '' })
+        } catch (error) {
             console.error(error)
         }
     }
 
     const updateBookmark = async (id, bookmarkToUpdate) => {
-        console.log(id, bookmarkToUpdate)
         const body = { ...bookmarkToUpdate }
         try {
             const response = await fetch(`/api/bookmarks/${id}`, {
@@ -60,59 +55,55 @@ export default function App(){
 
     const deleteBookmark = async (id) => {
         try {
-            const index = bookmarks.findIndex((bookmark) => bookmark._id === id)
-            const bookmarksCopy = [...bookmarks]
             const response = await fetch(`/api/bookmarks/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
-            await response.json()
-            bookmarksCopy.splice(index, 1)
-            setBookmarks(bookmarksCopy)
+            });
+            if (response.ok) {
+                setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id));
+            }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
-    
+
     const moveMark = async (id) => {
         try {
-            const index = bookmarks.findIndex((bookmark) => bookmark._id === id)
-            const bookmarksCopy = [...bookmarks]
-            const subject = bookmarksCopy[index]
-            const response = await fetch(`/api/bookmarks/${id}`, {
+            const response = await fetch(`/api/bookmarks/${id}/move`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(subject)
-            })
-            const updatedBookmark = await response.json()
-            const completedBMsCopy = [updatedBookmark, ...completedBookmarks]
-            setCompletedBookmarks(completedBMsCopy)
-            bookmarksCopy.splice(index, 1)
-            setBookmarks(bookmarksCopy)
+                }
+            });
+            if (response.ok) {
+                const movedBookmark = bookmarks.find(bookmark => bookmark._id === id);
+                setAddedBookmarks([movedBookmark, ...addedBookmarks]);
+                setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id));
+            }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
     const getBookmarks = async () => {
-        try{
-            const response = await fetch('/api/bookmarks')
-            const foundBookmarks = await response.json()
-            setBookmarks(foundBookmarks.reverse())
-            const responseTwo = await fetch('/api/bookmarks/completed')
-            const foundCompletedBookmarks = await responseTwo.json()
-            setCompletedBookmarks(foundCompletedBookmarks.reverse())
-        } catch(error){
-            console.error(error)
+        try {
+            const response = await fetch('/api/bookmarks');
+            const data = await response.json();
+            setBookmarks(data.bookmarks.reverse());
+            const responseTwo = await fetch('/api/bookmarks/added');
+            const addedData = await responseTwo.json();
+            setAddedBookmarks(addedData.reverse());
+        } catch (error) {
+            console.error(error);
         }
     }
+
     useEffect(() => {
-        getBookmarks()
-    }, [])
+        getBookmarks();
+    }, []);
+
     return (
         <div className={styles.App}>
             <BookmarkList
@@ -122,7 +113,7 @@ export default function App(){
                 bookmarks={bookmarks}
                 updateBookmark={updateBookmark}
                 moveMark={moveMark}
-                completedBookmarks={completedBookmarks}
+                addedBookmarks={addedBookmarks}
                 deleteBookmark={deleteBookmark}
             />
         </div>
