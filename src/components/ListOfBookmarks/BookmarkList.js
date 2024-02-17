@@ -11,13 +11,13 @@ export default function BookmarkList({
     moveMark
 }) {
     function handleCreateBookmark() {
-        if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
+        if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://') {
             createBookmark()
         }
     }
 
     function handleMoveMark(id) {
-        moveMark(id);
+        moveMark(id)
     }
 
     return (
@@ -35,7 +35,7 @@ export default function BookmarkList({
                             onChange={(e) => setNewBookmark({ ...newBookmark, title: e.target.value })}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    handleCreateBookmark()
+                                    handleCreateBookmark();
                                 }
                             }}
                         />

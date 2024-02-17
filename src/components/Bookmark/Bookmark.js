@@ -2,32 +2,29 @@ import React, { useState } from 'react'
 import styles from './Bookmark.module.scss'
 
 const Bookmark = ({ bookmark, deleteMark, updateMark }) => {
-    const [title, setTitle] = useState(bookmark.title)
+    const [title, setTitle] = useState(bookmark.title);
     const [url, setUrl] = useState(bookmark.url)
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         if (name === 'title') {
-            setTitle(value)
+            setTitle(value);
         } else if (name === 'url') {
-            setUrl(value)
+            setUrl(value);
         }
-    }
+    };
 
-    const handleSubmit = (e) => {
-        if (e.key === 'Enter') {
-            updateMark(bookmark._id, { [e.target.name]: e.target.value })
-            e.target.blur()
-        }
-    }
+    const handleSubmit = (fieldName, fieldValue) => {
+        updateMark(bookmark._id, { [fieldName]: fieldValue })
+    };
 
     const handleClick = () => {
         window.open(bookmark.url, '_blank')
-    }
+    };
 
     const handleDelete = () => {
         deleteMark(bookmark._id)
-    }
+    };
 
     return (
         <div className={styles.bookmarkContainer}>
@@ -37,7 +34,7 @@ const Bookmark = ({ bookmark, deleteMark, updateMark }) => {
                     className={styles.titleInput}
                     value={title}
                     onChange={handleInputChange}
-                    onKeyDown={handleSubmit}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSubmit('title', e.target.value)}
                 />
                 <div className={styles.bookmarkUrl}>
                     <input
@@ -45,7 +42,7 @@ const Bookmark = ({ bookmark, deleteMark, updateMark }) => {
                         className={styles.urlInput}
                         value={url}
                         onChange={handleInputChange}
-                        onKeyDown={handleSubmit}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSubmit('url', e.target.value)}
                     />
                 </div>
             </form>
@@ -61,7 +58,7 @@ const Bookmark = ({ bookmark, deleteMark, updateMark }) => {
                 <div className={styles.animation}></div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Bookmark

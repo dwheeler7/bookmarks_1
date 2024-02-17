@@ -1,5 +1,5 @@
+require('dotenv').config()
 const Bookmark = require('../../models/bookmark')
-
 
 module.exports = {
     create,
@@ -10,16 +10,17 @@ module.exports = {
     jsonBookmark
 }
 
-//json
+// jsonBookmarks jsonBookmark
+// viewControllers
 function jsonBookmark (_, res) {
     res.json(res.locals.data.bookmark)
 }
 
 function jsonBookmarks (_, res) {
-    res.json(res.locals.data.bookmark)
+    res.json(res.locals.data.bookmarks)
 }
 
-//CREATE
+/****** C - Create *******/
 async function create(req, res, next){
     try {
         const bookmark = await Bookmark.create(req.body)
@@ -31,10 +32,10 @@ async function create(req, res, next){
     }
 }
 
-//READ
-async function index(_, res ,next) {
+/****** R - Read *****/
+async function index(_ ,res,next) {
     try {
-        const bookmarks = await Bookmark.find({ completed: true })
+        const bookmarks = await Bookmark.find({})
         res.locals.data.bookmarks = bookmarks
         next()
     } catch (error) {
@@ -42,8 +43,9 @@ async function index(_, res ,next) {
     }
 }
 
-//UPDATE
-async function update(req ,res,next) {
+
+/****** U - Update *****/
+async function update(req ,res, next) {
     try {
         const bookmark = await Bookmark.findByIdAndUpdate(req.params.id, req.body, { new: true })
         res.locals.data.bookmark = bookmark
@@ -53,7 +55,7 @@ async function update(req ,res,next) {
     }
 }
 
-//DESTROY
+/***** D - destroy/delete *****/
 async function destroy(req ,res,next) {
     try {
         const bookmark = await Bookmark.findByIdAndDelete(req.params.id)
