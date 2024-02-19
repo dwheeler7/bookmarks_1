@@ -18,7 +18,7 @@ export default function BookmarkList({
 
     return (
         <>
-            <h1>BOOKMARKS PART 1</h1>
+            <h1>BOOKMARKS</h1>
             <div className={styles.container}>
                 <div className={styles.inputContainer}>
                     <div className={styles.titleInputContainer}>
@@ -51,7 +51,7 @@ export default function BookmarkList({
                     </div>
                 </div>
                 <div className={styles.bookmarksContainer}>
-                    <h3>MY BOOKMARKS:</h3>
+                    <h3>MY SITES</h3>
                     {bookmarks.length > 0 ? (
                         bookmarks.map((bookmark) => (
                             <Bookmark
