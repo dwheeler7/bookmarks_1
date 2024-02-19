@@ -10,14 +10,12 @@ module.exports = {
     jsonBookmark
 }
 
-// jsonBookmarks jsonBookmark
-// viewControllers
 function jsonBookmark(req, res) {
-    res.json(res.locals.data.bookmark);
+    res.json(res.locals.data.bookmark)
 }
 
 function jsonBookmarks(req, res) {
-    res.json(res.locals.data.bookmarks);
+    res.json(res.locals.data.bookmarks)
 }
 
 async function create(req, res, next) {

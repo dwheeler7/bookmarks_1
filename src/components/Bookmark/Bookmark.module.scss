@@ -1,26 +1,45 @@
 .bookmarkContainer {
-    background-color: #d4d9db;
-    border: 1px solid #ddd;
-    padding: 1rem;
+  background-color: tan;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: left;
+  font-size: 1.1rem;
+
+  .titleWithIcon {
+    display: flex;
+    align-items: left;
+    justify-content: left; 
+  }
+
+  .bookmarkIcon {
+    width: 30px; 
+    height: 30px;  
+  }
+
+  .button {
+    background-color: black;
+    color: tan;
+    padding: 0.5rem 1rem;
+    border: none;
     border-radius: 5px;
-    margin-bottom: 1rem;
-    text-align: center;
-  
-    .button {
-      background-color: #d400ff;
-      color: black;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      margin: 0.5rem;
-      font-size: 1rem;
-  
-      &:hover {
-        background-color: darken(#ae00ff, 10%);
-      }
-  
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0.5rem;
+    font-size: 1rem;
+
+    &:hover {
+      background-color: darken(#4d4319, 10%);
     }
   }
+
+  .input {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(100% - 1rem); 
+  }
+}

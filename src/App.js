@@ -48,18 +48,18 @@ export default function App() {
 
     const getBookmarks = async () => {
         try {
-            const response = await fetch('/api/bookmarks');
-            if (!response.ok) throw new Error('Network response was not ok');
-            const data = await response.json();
-            setBookmarks(data.reverse()); // Assuming the response is an array of bookmarks
+            const response = await fetch('/api/bookmarks')
+            if (!response.ok) throw new Error('Network response was not ok')
+            const data = await response.json()
+            setBookmarks(data.reverse())
         } catch (error) {
-            console.error('Failed to fetch bookmarks:', error);
+            console.error('Failed to fetch bookmarks:', error)
         }
     };
 
     useEffect(() => {
-        getBookmarks();
-    }, []);
+        getBookmarks()
+    }, [])
 
     return (
         <div className={styles.App}>

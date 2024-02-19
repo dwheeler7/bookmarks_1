@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './BookmarkList.module.scss'
 import Bookmark from '../Bookmark/Bookmark'
 
+const iconUrl = 'https://endlessicons.com/wp-content/uploads/2014/03/bookmark-icon-1-614x460.png'
+
 export default function BookmarkList({
     newBookmark,
     createBookmark,
@@ -12,17 +14,20 @@ export default function BookmarkList({
 }) {
     function handleCreateBookmark() {
         if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
-            createBookmark(newBookmark)
+            createBookmark(newBookmark);
         }
     }
 
     return (
         <>
-            <h1>BOOKMARKS</h1>
+            <div className={styles.headerContainer}>
+                <h1>BOOKMARKS</h1>
+                <img src={iconUrl} alt="Bookmark Icon" className={styles.bookmarkIcon} />
+            </div>
             <div className={styles.container}>
                 <div className={styles.inputContainer}>
-                    <div className={styles.titleInputContainer}>
-                        <h3 className={styles.inputTitle}>SITE NAME:</h3>
+                    <div className={styles.titleContainer}>
+                        <h3 className={styles.siteName}>SITE NAME</h3>
                         <input
                             className={styles.input}
                             type="text"
@@ -35,8 +40,8 @@ export default function BookmarkList({
                             }}
                         />
                     </div>
-                    <div className={styles.urlInputContainer}>
-                        <h3 className={styles.inputTitle}>URL:</h3>
+                    <div className={styles.urlContainer}>
+                        <h3 className={styles.siteUrl}>URL</h3>
                         <input
                             className={styles.input}
                             type="text"
