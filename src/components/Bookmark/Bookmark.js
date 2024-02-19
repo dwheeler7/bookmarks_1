@@ -1,23 +1,10 @@
 import React, { useState } from 'react'
 import styles from './Bookmark.module.scss'
 
-const Bookmark = ({ bookmark, deleteBookmark, updateBookmark }) => {
+const Bookmark = ({ bookmark, deleteBookmark }) => {
     const [editMode, setEditMode] = useState(false)
     const [title, setTitle] = useState(bookmark.title)
     const [url, setUrl] = useState(bookmark.url)
-
-    const editMark = () => {
-        setEditMode(!editMode)
-    }
-
-    const handleDelete = () => {
-        deleteBookmark(bookmark._id)
-    }
-
-    const handleUpdate = () => {
-        updateBookmark(bookmark._id, { title, url })
-        editMark()
-    }
 
     return (
         <div className={styles.bookmarkContainer}>
@@ -33,22 +20,14 @@ const Bookmark = ({ bookmark, deleteBookmark, updateBookmark }) => {
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                     />
-                    <button className={styles.button} onClick={handleUpdate}>Save</button>
-                    <button className={styles.button} onClick={editMark}>Cancel</button>
+                    <button className={styles.button} onClick={() => setEditMode(false)}>Save</button>
                 </>
             ) : (
                 <>
                     <h4>{title}</h4>
-                    <a
-                        className={styles.visitBtn}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Visit
-                    </a>
-                    <button className={styles.button} onClick={editMark}>Edit</button>
-                    <button className={styles.button} onClick={handleDelete}>Remove</button>
+                    <button className={styles.button} onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}>Go</button>
+                    <button className={styles.button} onClick={() => setEditMode(true)}>Edit</button>
+                    <button className={styles.button} onClick={() => deleteBookmark(bookmark._id)}>Remove</button>
                 </>
             )}
         </div>

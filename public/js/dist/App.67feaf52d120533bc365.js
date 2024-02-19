@@ -26,7 +26,6 @@ function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = 
 
 function App() {
   const [bookmarks, setBookmarks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [addedBookmarks, setAddedBookmarks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [newBookmark, setNewBookmark] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     title: '',
     url: ''
@@ -41,43 +40,18 @@ function App() {
         },
         body: JSON.stringify(body)
       });
+      if (!response.ok) throw new Error('Network response was not ok');
       const createdBookmark = await response.json();
-      const bookmarksCopy = [createdBookmark, ...bookmarks];
-      setBookmarks(bookmarksCopy);
+      setBookmarks(prevBookmarks => [createdBookmark, ...prevBookmarks]);
       setNewBookmark({
         title: '',
         url: ''
       });
     } catch (error) {
-      console.error(error);
+      console.error('Failed to create bookmark:', error);
     }
   };
-  const updateBookmark = async (id, bookmarkToUpdate) => {
-    const body = _objectSpread({}, bookmarkToUpdate);
-    try {
-      const response = await fetch("/api/bookmarks/".concat(id), {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-      });
-      const updatedBookmark = await response.json();
-      const updatedBookmarks = bookmarks.map(bookmark => {
-        if (bookmark._id === id) {
-          return updatedBookmark;
-        }
-        return bookmark;
-      });
-      setBookmarks(updatedBookmarks);
-      setNewBookmark({
-        title: '',
-        url: ''
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const updateBookmark = async (id, bookmarkToUpdate) => {};
   const deleteBookmark = async id => {
     try {
       const response = await fetch("/api/bookmarks/".concat(id), {
@@ -86,40 +60,22 @@ function App() {
           'Content-Type': 'application/json'
         }
       });
-      if (response.ok) {
-        setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id));
+      if (!response.ok) {
+        throw new Error("Failed to delete bookmark with id ".concat(id, ": ").concat(response.statusText));
       }
+      setBookmarks(prevBookmarks => prevBookmarks.filter(bookmark => bookmark._id !== id));
     } catch (error) {
-      console.error(error);
-    }
-  };
-  const moveMark = async id => {
-    try {
-      const response = await fetch("/api/bookmarks/".concat(id, "/move"), {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      if (response.ok) {
-        const movedBookmark = bookmarks.find(bookmark => bookmark._id === id);
-        setAddedBookmarks([movedBookmark, ...addedBookmarks]);
-        setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id));
-      }
-    } catch (error) {
-      console.error(error);
+      console.error('Error deleting bookmark:', error);
     }
   };
   const getBookmarks = async () => {
     try {
       const response = await fetch('/api/bookmarks');
+      if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      setBookmarks(data.bookmarks.reverse());
-      const responseTwo = await fetch('/api/bookmarks/added');
-      const addedData = await responseTwo.json();
-      setAddedBookmarks(addedData.reverse());
+      setBookmarks(data.reverse()); // Assuming the response is an array of bookmarks
     } catch (error) {
-      console.error(error);
+      console.error('Failed to fetch bookmarks:', error);
     }
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -133,8 +89,6 @@ function App() {
     createBookmark: createBookmark,
     bookmarks: bookmarks,
     updateBookmark: updateBookmark,
-    moveMark: moveMark,
-    addedBookmarks: addedBookmarks,
     deleteBookmark: deleteBookmark
   }));
 }
@@ -158,25 +112,11 @@ function App() {
 const Bookmark = _ref => {
   let {
     bookmark,
-    deleteBookmark,
-    updateBookmark
+    deleteBookmark
   } = _ref;
   const [editMode, setEditMode] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [title, setTitle] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.title);
   const [url, setUrl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.url);
-  const editMark = () => {
-    setEditMode(!editMode);
-  };
-  const handleDelete = () => {
-    deleteBookmark(bookmark._id);
-  };
-  const handleUpdate = () => {
-    updateBookmark(bookmark._id, {
-      title,
-      url
-    });
-    editMark();
-  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].bookmarkContainer
   }, editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
@@ -189,21 +129,16 @@ const Bookmark = _ref => {
     onChange: e => setUrl(e.target.value)
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
-    onClick: handleUpdate
-  }, "Save"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: () => setEditMode(false)
+  }, "Save")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
-    onClick: editMark
-  }, "Cancel")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
-    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].visitBtn,
-    href: url,
-    target: "_blank",
-    rel: "noopener noreferrer"
-  }, "Visit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: () => window.open(url, '_blank', 'noopener,noreferrer')
+  }, "Go"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
-    onClick: editMark
+    onClick: () => setEditMode(true)
   }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
-    onClick: handleDelete
+    onClick: () => deleteBookmark(bookmark._id)
   }, "Remove")));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Bookmark);
@@ -242,7 +177,7 @@ function BookmarkList(_ref) {
   } = _ref;
   function handleCreateBookmark() {
     if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
-      createBookmark();
+      createBookmark(newBookmark);
     }
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "BOOKMARKS PART 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -383,21 +318,16 @@ ___CSS_LOADER_EXPORT___.locals = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.k6ypUdZIToQcx5q02lTg {
-  background-color: #f0f0f0;
+  background-color: #d4d9db;
   border: 1px solid #ddd;
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
   text-align: center;
 }
-.k6ypUdZIToQcx5q02lTg h4 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk,
-.k6ypUdZIToQcx5q02lTg .qhNOBMDyjIchlC6YpsB_ {
-  background-color: #007bff;
-  color: white;
+.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk {
+  background-color: #d400ff;
+  color: black;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
@@ -407,21 +337,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.k6ypUdZIToQcx5q02lTg {
   margin: 0.5rem;
   font-size: 1rem;
 }
-.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk:hover,
-.k6ypUdZIToQcx5q02lTg .qhNOBMDyjIchlC6YpsB_:hover {
-  background-color: #0062cc;
-}
-.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk:focus, .k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk:active,
-.k6ypUdZIToQcx5q02lTg .qhNOBMDyjIchlC6YpsB_:focus,
-.k6ypUdZIToQcx5q02lTg .qhNOBMDyjIchlC6YpsB_:active {
-  outline: none;
-  box-shadow: none;
-}`, "",{"version":3,"sources":["webpack://./src/components/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACI,yBAAA;EACA,sBAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,kBAAA;AACJ;AACI;EACE,iBAAA;EACA,qBAAA;AACN;AAEI;;EAEE,yBAAA;EACA,YAAA;EACA,oBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,qBAAA;EACA,cAAA;EACA,eAAA;AAAN;AAEM;;EACE,yBAAA;AACR;AAEM;;;EAEE,aAAA;EACA,gBAAA;AACR","sourcesContent":[".bookmarkContainer {\n    background-color: #f0f0f0;\n    border: 1px solid #ddd;\n    padding: 1rem;\n    border-radius: 5px;\n    margin-bottom: 1rem;\n    text-align: center;\n  \n    h4 {\n      font-size: 1.2rem;\n      margin-bottom: 0.5rem;\n    }\n  \n    .button,\n    .visitBtn {\n      background-color: #007bff;\n      color: white;\n      padding: 0.5rem 1rem;\n      border: none;\n      border-radius: 5px;\n      cursor: pointer;\n      text-decoration: none;\n      display: inline-block;\n      margin: 0.5rem;\n      font-size: 1rem;\n  \n      &:hover {\n        background-color: darken(#007bff, 10%);\n      }\n  \n      &:focus,\n      &:active {\n        outline: none;\n        box-shadow: none;\n      }\n    }\n  }"],"sourceRoot":""}]);
+.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk:hover {
+  background-color: #8b00cc;
+}`, "",{"version":3,"sources":["webpack://./src/components/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACI,yBAAA;EACA,sBAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,kBAAA;AACJ;AACI;EACE,yBAAA;EACA,YAAA;EACA,oBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,qBAAA;EACA,cAAA;EACA,eAAA;AACN;AACM;EACE,yBAAA;AACR","sourcesContent":[".bookmarkContainer {\n    background-color: #d4d9db;\n    border: 1px solid #ddd;\n    padding: 1rem;\n    border-radius: 5px;\n    margin-bottom: 1rem;\n    text-align: center;\n  \n    .button {\n      background-color: #d400ff;\n      color: black;\n      padding: 0.5rem 1rem;\n      border: none;\n      border-radius: 5px;\n      cursor: pointer;\n      text-decoration: none;\n      display: inline-block;\n      margin: 0.5rem;\n      font-size: 1rem;\n  \n      &:hover {\n        background-color: darken(#ae00ff, 10%);\n      }\n  \n    }\n  }"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"bookmarkContainer": `k6ypUdZIToQcx5q02lTg`,
-	"button": `JSmS6vn316ABbTaYqDzk`,
-	"visitBtn": `qhNOBMDyjIchlC6YpsB_`
+	"button": `JSmS6vn316ABbTaYqDzk`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -821,4 +743,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.ef66b1e6e35db28d9b55f92c90d53ce5.js.map
+//# sourceMappingURL=App.4373cf69bda424116a87310ee48acc4a.js.map

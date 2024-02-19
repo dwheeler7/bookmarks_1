@@ -12,7 +12,7 @@ export default function BookmarkList({
 }) {
     function handleCreateBookmark() {
         if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
-            createBookmark()
+            createBookmark(newBookmark)
         }
     }
 

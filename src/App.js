@@ -3,12 +3,8 @@ import BookmarkList from './components/ListOfBookmarks/BookmarkList'
 import styles from './App.module.scss'
 
 export default function App() {
-    const [bookmarks, setBookmarks] = useState([])
-    const [addedBookmarks, setAddedBookmarks] = useState([])
-    const [newBookmark, setNewBookmark] = useState({
-        title: '',
-        url: ''
-    })
+    const [bookmarks, setBookmarks] = useState([]);
+    const [newBookmark, setNewBookmark] = useState({ title: '', url: '' });
 
     const createBookmark = async () => {
         const body = { ...newBookmark }
@@ -16,41 +12,21 @@ export default function App() {
             const response = await fetch('/api/bookmarks', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(body)
-            })
+                body: JSON.stringify(body),
+            });
+            if (!response.ok) throw new Error('Network response was not ok')
             const createdBookmark = await response.json()
-            const bookmarksCopy = [createdBookmark, ...bookmarks]
-            setBookmarks(bookmarksCopy)
+            setBookmarks((prevBookmarks) => [createdBookmark, ...prevBookmarks])
             setNewBookmark({ title: '', url: '' })
         } catch (error) {
-            console.error(error)
+            console.error('Failed to create bookmark:', error)
         }
     }
 
     const updateBookmark = async (id, bookmarkToUpdate) => {
-        const body = { ...bookmarkToUpdate }
-        try {
-            const response = await fetch(`/api/bookmarks/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            })
-            const updatedBookmark = await response.json()
-            const updatedBookmarks = bookmarks.map(bookmark => {
-                if (bookmark._id === id) {
-                    return updatedBookmark
-                }
-                return bookmark
-            });
-            setBookmarks(updatedBookmarks)
-            setNewBookmark({ title: '', url: '' })
-        } catch (error) {
-            console.error(error)
-        }
+
     }
 
     const deleteBookmark = async (id) => {
@@ -59,50 +35,31 @@ export default function App() {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
             })
-            if (response.ok) {
-                setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id))
+            if (!response.ok) {
+                throw new Error(`Failed to delete bookmark with id ${id}: ${response.statusText}`)
             }
+            setBookmarks(prevBookmarks => prevBookmarks.filter(bookmark => bookmark._id !== id))
         } catch (error) {
-            console.error(error)
-        }
-    }
-
-    const moveMark = async (id) => {
-        try {
-            const response = await fetch(`/api/bookmarks/${id}/move`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (response.ok) {
-                const movedBookmark = bookmarks.find(bookmark => bookmark._id === id)
-                setAddedBookmarks([movedBookmark, ...addedBookmarks])
-                setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id))
-            }
-        } catch (error) {
-            console.error(error);
+            console.error('Error deleting bookmark:', error)
         }
     }
 
     const getBookmarks = async () => {
         try {
-            const response = await fetch('/api/bookmarks')
-            const data = await response.json()
-            setBookmarks(data.bookmarks.reverse())
-            const responseTwo = await fetch('/api/bookmarks/added')
-            const addedData = await responseTwo.json()
-            setAddedBookmarks(addedData.reverse())
+            const response = await fetch('/api/bookmarks');
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            setBookmarks(data.reverse()); // Assuming the response is an array of bookmarks
         } catch (error) {
-            console.error(error)
+            console.error('Failed to fetch bookmarks:', error);
         }
-    }
+    };
 
     useEffect(() => {
-        getBookmarks()
-    }, [])
+        getBookmarks();
+    }, []);
 
     return (
         <div className={styles.App}>
@@ -112,8 +69,6 @@ export default function App() {
                 createBookmark={createBookmark}
                 bookmarks={bookmarks}
                 updateBookmark={updateBookmark}
-                moveMark={moveMark}
-                addedBookmarks={addedBookmarks}
                 deleteBookmark={deleteBookmark}
             />
         </div>
