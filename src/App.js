@@ -44,7 +44,7 @@ export default function App() {
                 if (bookmark._id === id) {
                     return updatedBookmark
                 }
-                return bookmark;
+                return bookmark
             });
             setBookmarks(updatedBookmarks)
             setNewBookmark({ title: '', url: '' })
@@ -60,12 +60,12 @@ export default function App() {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });
+            })
             if (response.ok) {
-                setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id));
+                setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id))
             }
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
     }
 
@@ -78,9 +78,9 @@ export default function App() {
                 }
             });
             if (response.ok) {
-                const movedBookmark = bookmarks.find(bookmark => bookmark._id === id);
-                setAddedBookmarks([movedBookmark, ...addedBookmarks]);
-                setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id));
+                const movedBookmark = bookmarks.find(bookmark => bookmark._id === id)
+                setAddedBookmarks([movedBookmark, ...addedBookmarks])
+                setBookmarks(bookmarks.filter(bookmark => bookmark._id !== id))
             }
         } catch (error) {
             console.error(error);
@@ -89,20 +89,20 @@ export default function App() {
 
     const getBookmarks = async () => {
         try {
-            const response = await fetch('/api/bookmarks');
-            const data = await response.json();
-            setBookmarks(data.bookmarks.reverse());
-            const responseTwo = await fetch('/api/bookmarks/added');
-            const addedData = await responseTwo.json();
-            setAddedBookmarks(addedData.reverse());
+            const response = await fetch('/api/bookmarks')
+            const data = await response.json()
+            setBookmarks(data.bookmarks.reverse())
+            const responseTwo = await fetch('/api/bookmarks/added')
+            const addedData = await responseTwo.json()
+            setAddedBookmarks(addedData.reverse())
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
     }
 
     useEffect(() => {
-        getBookmarks();
-    }, []);
+        getBookmarks()
+    }, [])
 
     return (
         <div className={styles.App}>

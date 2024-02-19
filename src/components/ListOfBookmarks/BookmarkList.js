@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './BookmarkList.module.scss'
 import Bookmark from '../Bookmark/Bookmark'
 
@@ -7,17 +8,12 @@ export default function BookmarkList({
     setNewBookmark,
     bookmarks,
     deleteBookmark,
-    updateBookmark,
-    moveMark
+    updateBookmark
 }) {
     function handleCreateBookmark() {
-        if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://') {
+        if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
             createBookmark()
         }
-    }
-
-    function handleMoveMark(id) {
-        moveMark(id)
     }
 
     return (
@@ -25,7 +21,6 @@ export default function BookmarkList({
             <h1>BOOKMARKS PART 1</h1>
             <div className={styles.container}>
                 <div className={styles.inputContainer}>
-                    <div className={styles.banner}></div>
                     <div className={styles.titleInputContainer}>
                         <h3 className={styles.inputTitle}>SITE NAME:</h3>
                         <input
@@ -35,7 +30,7 @@ export default function BookmarkList({
                             onChange={(e) => setNewBookmark({ ...newBookmark, title: e.target.value })}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    handleCreateBookmark();
+                                    handleCreateBookmark()
                                 }
                             }}
                         />
@@ -45,7 +40,7 @@ export default function BookmarkList({
                         <input
                             className={styles.input}
                             type="text"
-                            value={newBookmark.url ? newBookmark.url : 'https://'}
+                            value={newBookmark.url || 'https://'}
                             onChange={(e) => setNewBookmark({ ...newBookmark, url: e.target.value })}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
@@ -56,17 +51,19 @@ export default function BookmarkList({
                     </div>
                 </div>
                 <div className={styles.bookmarksContainer}>
-                    <div className={styles.bookmarks}>
-                        {bookmarks.map(bookmark => (
+                    <h3>MY BOOKMARKS:</h3>
+                    {bookmarks.length > 0 ? (
+                        bookmarks.map((bookmark) => (
                             <Bookmark
                                 key={bookmark._id}
                                 bookmark={bookmark}
-                                deleteAction={deleteBookmark}
+                                deleteBookmark={deleteBookmark}
                                 updateBookmark={updateBookmark}
-                                moveMark={handleMoveMark}
                             />
-                        ))}
-                    </div>
+                        ))
+                    ) : (
+                        <p>No bookmarks added yet.</p>
+                    )}
                 </div>
             </div>
         </>

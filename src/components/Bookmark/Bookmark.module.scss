@@ -1,17 +1,37 @@
-.bookmark {
-    font-size: 1.5rem;
-    color: rgba(23, 5, 58, 0.79);
-    .button {
-        background-color: rgba(25, 5, 58, 0.8);
-        text-transform: uppercase;
-        cursor: pointer;
-        color: ghostwhite;
-        padding: 0.25rem 1rem;
-        font-size: 1rem;
-        font-weight: 700;
-        display: inline-block;
-        margin-left: 1rem;
-        border: 2px;
-        box-shadow: 0 2px 5px rgba(23, 5, 58, 0.5);
+.bookmarkContainer {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-align: center;
+  
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
     }
-}
+  
+    .button,
+    .visitBtn {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 0.5rem;
+      font-size: 1rem;
+  
+      &:hover {
+        background-color: darken(#007bff, 10%);
+      }
+  
+      &:focus,
+      &:active {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }

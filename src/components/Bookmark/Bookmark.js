@@ -1,64 +1,58 @@
 import React, { useState } from 'react'
 import styles from './Bookmark.module.scss'
 
-const Bookmark = ({ bookmark, deleteMark, updateMark }) => {
-    const [title, setTitle] = useState(bookmark.title);
+const Bookmark = ({ bookmark, deleteBookmark, updateBookmark }) => {
+    const [editMode, setEditMode] = useState(false)
+    const [title, setTitle] = useState(bookmark.title)
     const [url, setUrl] = useState(bookmark.url)
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        if (name === 'title') {
-            setTitle(value);
-        } else if (name === 'url') {
-            setUrl(value);
-        }
-    };
-
-    const handleSubmit = (fieldName, fieldValue) => {
-        updateMark(bookmark._id, { [fieldName]: fieldValue })
-    };
-
-    const handleClick = () => {
-        window.open(bookmark.url, '_blank')
-    };
+    const editMark = () => {
+        setEditMode(!editMode)
+    }
 
     const handleDelete = () => {
-        deleteMark(bookmark._id)
-    };
+        deleteBookmark(bookmark._id)
+    }
+
+    const handleUpdate = () => {
+        updateBookmark(bookmark._id, { title, url })
+        editMark()
+    }
 
     return (
         <div className={styles.bookmarkContainer}>
-            <form className={styles.bookmark}>
-                <input
-                    name='title'
-                    className={styles.titleInput}
-                    value={title}
-                    onChange={handleInputChange}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSubmit('title', e.target.value)}
-                />
-                <div className={styles.bookmarkUrl}>
+            {editMode ? (
+                <>
                     <input
-                        name='url'
-                        className={styles.urlInput}
-                        value={url}
-                        onChange={handleInputChange}
-                        onKeyDown={(e) => e.key === 'Enter' && handleSubmit('url', e.target.value)}
+                        className={styles.input}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
-                </div>
-            </form>
-            <div>
-                <button className={styles.button} onClick={handleDelete}>
-                    Remove
-                </button>
-                <div className={styles.visitBtnContainer} onClick={handleClick}>
-                    <a className={styles.visitBtn} href={bookmark.url} target='_blank' rel='noopener noreferrer'>
-                        Go
+                    <input
+                        className={styles.input}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                    />
+                    <button className={styles.button} onClick={handleUpdate}>Save</button>
+                    <button className={styles.button} onClick={editMark}>Cancel</button>
+                </>
+            ) : (
+                <>
+                    <h4>{title}</h4>
+                    <a
+                        className={styles.visitBtn}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Visit
                     </a>
-                </div>
-                <div className={styles.animation}></div>
-            </div>
+                    <button className={styles.button} onClick={editMark}>Edit</button>
+                    <button className={styles.button} onClick={handleDelete}>Remove</button>
+                </>
+            )}
         </div>
-    );
-};
+    )
+}
 
 export default Bookmark

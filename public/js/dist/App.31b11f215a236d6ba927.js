@@ -158,68 +158,53 @@ function App() {
 const Bookmark = _ref => {
   let {
     bookmark,
-    deleteMark,
-    updateMark
+    deleteBookmark,
+    updateBookmark
   } = _ref;
+  const [editMode, setEditMode] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [title, setTitle] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.title);
   const [url, setUrl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.url);
-  const handleInputChange = e => {
-    const {
-      name,
-      value
-    } = e.target;
-    if (name === 'title') {
-      setTitle(value);
-    } else if (name === 'url') {
-      setUrl(value);
-    }
-  };
-  const handleSubmit = e => {
-    if (e.key === 'Enter') {
-      updateMark(bookmark._id, {
-        [e.target.name]: e.target.value
-      });
-      e.target.blur();
-    }
-  };
-  const handleClick = () => {
-    window.open(bookmark.url, '_blank');
+  const editMark = () => {
+    setEditMode(!editMode);
   };
   const handleDelete = () => {
-    deleteMark(bookmark._id);
+    deleteBookmark(bookmark._id);
+  };
+  const handleUpdate = () => {
+    updateBookmark(bookmark._id, {
+      title,
+      url
+    });
+    editMark();
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].bookmarkContainer
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
-    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].bookmark
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    name: "title",
-    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].titleInput,
+  }, editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
     value: title,
-    onChange: handleInputChange,
-    onKeyDown: handleSubmit
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].bookmarkUrl
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    name: "url",
-    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].urlInput,
+    onChange: e => setTitle(e.target.value)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
     value: url,
-    onChange: handleInputChange,
-    onKeyDown: handleSubmit
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onChange: e => setUrl(e.target.value)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
-    onClick: handleDelete
-  }, "Remove"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].visitBtnContainer,
-    onClick: handleClick
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    onClick: handleUpdate
+  }, "Save"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
+    onClick: editMark
+  }, "Cancel")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].visitBtn,
-    href: bookmark.url,
+    href: url,
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Go")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].animation
-  })));
+  }, "Visit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
+    onClick: editMark
+  }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
+    onClick: handleDelete
+  }, "Remove")));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Bookmark);
 
@@ -234,14 +219,16 @@ const Bookmark = _ref => {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ BookmarkList)
 /* harmony export */ });
-/* harmony import */ var _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookmarkList.module.scss */ "./src/components/ListOfBookmarks/BookmarkList.module.scss");
-/* harmony import */ var _Bookmark_Bookmark__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Bookmark/Bookmark */ "./src/components/Bookmark/Bookmark.js");
-/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BookmarkList.module.scss */ "./src/components/ListOfBookmarks/BookmarkList.module.scss");
+/* harmony import */ var _Bookmark_Bookmark__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Bookmark/Bookmark */ "./src/components/Bookmark/Bookmark.js");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
 
 
 function BookmarkList(_ref) {
@@ -251,29 +238,23 @@ function BookmarkList(_ref) {
     setNewBookmark,
     bookmarks,
     deleteBookmark,
-    updateBookmark,
-    moveMark
+    updateBookmark
   } = _ref;
   function handleCreateBookmark() {
     if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
       createBookmark();
     }
   }
-  function handleMoveMark(id) {
-    moveMark(id);
-  }
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "BOOKMARKS PART 1"), /*#__PURE__*/React.createElement("div", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].container
-  }, /*#__PURE__*/React.createElement("div", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].inputContainer
-  }, /*#__PURE__*/React.createElement("div", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].banner
-  }), /*#__PURE__*/React.createElement("div", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].titleInputContainer
-  }, /*#__PURE__*/React.createElement("h3", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].inputTitle
-  }, "SITE NAME:"), /*#__PURE__*/React.createElement("input", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].input,
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "BOOKMARKS PART 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].container
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].inputContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].titleInputContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].inputTitle
+  }, "SITE NAME:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
     type: "text",
     value: newBookmark.title,
     onChange: e => setNewBookmark(_objectSpread(_objectSpread({}, newBookmark), {}, {
@@ -284,14 +265,14 @@ function BookmarkList(_ref) {
         handleCreateBookmark();
       }
     }
-  })), /*#__PURE__*/React.createElement("div", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].urlInputContainer
-  }, /*#__PURE__*/React.createElement("h3", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].inputTitle
-  }, "URL:"), /*#__PURE__*/React.createElement("input", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].input,
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].urlInputContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].inputTitle
+  }, "URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
     type: "text",
-    value: newBookmark.url ? newBookmark.url : 'https://',
+    value: newBookmark.url || 'https://',
     onChange: e => setNewBookmark(_objectSpread(_objectSpread({}, newBookmark), {}, {
       url: e.target.value
     })),
@@ -300,17 +281,14 @@ function BookmarkList(_ref) {
         handleCreateBookmark();
       }
     }
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].bookmarksContainer
-  }, /*#__PURE__*/React.createElement("div", {
-    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].bookmarks
-  }, bookmarks.map(bookmark => /*#__PURE__*/React.createElement(_Bookmark_Bookmark__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].bookmarksContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "MY BOOKMARKS:"), bookmarks.length > 0 ? bookmarks.map(bookmark => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Bookmark_Bookmark__WEBPACK_IMPORTED_MODULE_2__["default"], {
     key: bookmark._id,
     bookmark: bookmark,
-    deleteAction: deleteBookmark,
-    updateBookmark: updateBookmark,
-    moveMark: handleMoveMark
-  }))))));
+    deleteBookmark: deleteBookmark,
+    updateBookmark: updateBookmark
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "No bookmarks added yet."))));
 }
 
 /***/ }),
@@ -404,27 +382,46 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.TKdPfLWuQZ3wBBMgYFyM {
-  font-size: 1.5rem;
-  color: rgba(23, 5, 58, 0.79);
+___CSS_LOADER_EXPORT___.push([module.id, `.k6ypUdZIToQcx5q02lTg {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: center;
 }
-.TKdPfLWuQZ3wBBMgYFyM .JSmS6vn316ABbTaYqDzk {
-  background-color: rgba(25, 5, 58, 0.8);
-  text-transform: uppercase;
+.k6ypUdZIToQcx5q02lTg h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk,
+.k6ypUdZIToQcx5q02lTg .qhNOBMDyjIchlC6YpsB_ {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  color: ghostwhite;
-  padding: 0.25rem 1rem;
-  font-size: 1rem;
-  font-weight: 700;
+  text-decoration: none;
   display: inline-block;
-  margin-left: 1rem;
-  border: 2px;
-  box-shadow: 0 2px 5px rgba(23, 5, 58, 0.5);
-}`, "",{"version":3,"sources":["webpack://./src/components/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACI,iBAAA;EACA,4BAAA;AACJ;AAAI;EACI,sCAAA;EACA,yBAAA;EACA,eAAA;EACA,iBAAA;EACA,qBAAA;EACA,eAAA;EACA,gBAAA;EACA,qBAAA;EACA,iBAAA;EACA,WAAA;EACA,0CAAA;AAER","sourcesContent":[".bookmark {\n    font-size: 1.5rem;\n    color: rgba(23, 5, 58, 0.79);\n    .button {\n        background-color: rgba(25, 5, 58, 0.8);\n        text-transform: uppercase;\n        cursor: pointer;\n        color: ghostwhite;\n        padding: 0.25rem 1rem;\n        font-size: 1rem;\n        font-weight: 700;\n        display: inline-block;\n        margin-left: 1rem;\n        border: 2px;\n        box-shadow: 0 2px 5px rgba(23, 5, 58, 0.5);\n    }\n}"],"sourceRoot":""}]);
+  margin: 0.5rem;
+  font-size: 1rem;
+}
+.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk:hover,
+.k6ypUdZIToQcx5q02lTg .qhNOBMDyjIchlC6YpsB_:hover {
+  background-color: #0062cc;
+}
+.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk:focus, .k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk:active,
+.k6ypUdZIToQcx5q02lTg .qhNOBMDyjIchlC6YpsB_:focus,
+.k6ypUdZIToQcx5q02lTg .qhNOBMDyjIchlC6YpsB_:active {
+  outline: none;
+  box-shadow: none;
+}`, "",{"version":3,"sources":["webpack://./src/components/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACI,yBAAA;EACA,sBAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,kBAAA;AACJ;AACI;EACE,iBAAA;EACA,qBAAA;AACN;AAEI;;EAEE,yBAAA;EACA,YAAA;EACA,oBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,qBAAA;EACA,cAAA;EACA,eAAA;AAAN;AAEM;;EACE,yBAAA;AACR;AAEM;;;EAEE,aAAA;EACA,gBAAA;AACR","sourcesContent":[".bookmarkContainer {\n    background-color: #f0f0f0;\n    border: 1px solid #ddd;\n    padding: 1rem;\n    border-radius: 5px;\n    margin-bottom: 1rem;\n    text-align: center;\n  \n    h4 {\n      font-size: 1.2rem;\n      margin-bottom: 0.5rem;\n    }\n  \n    .button,\n    .visitBtn {\n      background-color: #007bff;\n      color: white;\n      padding: 0.5rem 1rem;\n      border: none;\n      border-radius: 5px;\n      cursor: pointer;\n      text-decoration: none;\n      display: inline-block;\n      margin: 0.5rem;\n      font-size: 1rem;\n  \n      &:hover {\n        background-color: darken(#007bff, 10%);\n      }\n  \n      &:focus,\n      &:active {\n        outline: none;\n        box-shadow: none;\n      }\n    }\n  }"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
-	"bookmark": `TKdPfLWuQZ3wBBMgYFyM`,
-	"button": `JSmS6vn316ABbTaYqDzk`
+	"bookmarkContainer": `k6ypUdZIToQcx5q02lTg`,
+	"button": `JSmS6vn316ABbTaYqDzk`,
+	"visitBtn": `qhNOBMDyjIchlC6YpsB_`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -449,17 +446,45 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.A8QC4kV3hc3K9p3_FJHK {
+___CSS_LOADER_EXPORT___.push([module.id, `.CmE8XJSCcOAOYldhJsq2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 5rem;
   color: rgba(0, 0, 0, 0.8);
-}`, "",{"version":3,"sources":["webpack://./src/components/ListOfBookmarks/BookmarkList.module.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,eAAA;EACA,yBAAA;AACJ","sourcesContent":[".bookmarklist {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    font-size: 5rem;\n    color: rgba(0, 0, 0, 0.8);\n\n\n}"],"sourceRoot":""}]);
+}
+.CmE8XJSCcOAOYldhJsq2 .lIbtNV92GIuH1Of0iqPT {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.CmE8XJSCcOAOYldhJsq2 .lIbtNV92GIuH1Of0iqPT .lrWbz9AE0epwHlXGmX_V {
+  margin-bottom: 0.5rem;
+}
+.CmE8XJSCcOAOYldhJsq2 .lIbtNV92GIuH1Of0iqPT .rPlQstssfMhfWomZ8B9M {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.CmE8XJSCcOAOYldhJsq2 .C22zoUMKQswkthhLnKaF {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+.CmE8XJSCcOAOYldhJsq2 .C22zoUMKQswkthhLnKaF h3 {
+  text-align: center;
+}`, "",{"version":3,"sources":["webpack://./src/components/ListOfBookmarks/BookmarkList.module.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,eAAA;EACA,yBAAA;AACJ;AACI;EACE,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;EACA,SAAA;AACN;AACM;EACE,qBAAA;AACR;AAEM;EACE,eAAA;EACA,eAAA;EACA,sBAAA;EACA,kBAAA;AAAR;AAII;EACE,gBAAA;EACA,WAAA;EACA,gBAAA;AAFN;AAIM;EACE,kBAAA;AAFR","sourcesContent":[".bookmarkList {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    font-size: 5rem;\n    color: rgba(0, 0, 0, 0.8);\n    \n    .inputContainer {\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      align-items: center;\n      gap: 1rem; \n  \n      .inputTitle {\n        margin-bottom: 0.5rem;\n      }\n  \n      .input {\n        padding: 0.5rem;\n        font-size: 1rem; \n        border: 1px solid #ccc;\n        border-radius: 5px;\n      }\n    }\n  \n    .bookmarksContainer {\n      margin-top: 2rem;\n      width: 100%;\n      max-width: 600px; \n  \n      h3 {\n        text-align: center;\n      }\n    }\n  }"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
-	"bookmarklist": `A8QC4kV3hc3K9p3_FJHK`
+	"bookmarkList": `CmE8XJSCcOAOYldhJsq2`,
+	"inputContainer": `lIbtNV92GIuH1Of0iqPT`,
+	"inputTitle": `lrWbz9AE0epwHlXGmX_V`,
+	"input": `rPlQstssfMhfWomZ8B9M`,
+	"bookmarksContainer": `C22zoUMKQswkthhLnKaF`
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -796,4 +821,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.91c321c292db07257dd79cc7f90003f2.js.map
+//# sourceMappingURL=App.ef66b1e6e35db28d9b55f92c90d53ce5.js.map
