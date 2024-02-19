@@ -365,12 +365,13 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.k6ypUdZIToQcx5q02lTg {
   background-color: tan;
-  border: 1px solid #ddd;
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
   text-align: left;
   font-size: 1.1rem;
+  border: 8px solid black;
+  border-style: inset;
 }
 .k6ypUdZIToQcx5q02lTg ._5T_mzJtpwzfnwKchHpU {
   display: flex;
@@ -378,8 +379,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.k6ypUdZIToQcx5q02lTg {
   justify-content: left;
 }
 .k6ypUdZIToQcx5q02lTg .JJV6DZt6e75nPQ0DFMP4 {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
 }
 .k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk {
   background-color: black;
@@ -402,7 +403,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.k6ypUdZIToQcx5q02lTg {
   border: 1px solid #ccc;
   border-radius: 5px;
   width: calc(100% - 1rem);
-}`, "",{"version":3,"sources":["webpack://./src/components/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACE,qBAAA;EACA,sBAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,gBAAA;EACA,iBAAA;AACF;AACE;EACE,aAAA;EACA,iBAAA;EACA,qBAAA;AACJ;AAEE;EACE,WAAA;EACA,YAAA;AAAJ;AAGE;EACE,uBAAA;EACA,UAAA;EACA,oBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,qBAAA;EACA,cAAA;EACA,eAAA;AADJ;AAGI;EACE,yBAAA;AADN;AAKE;EACE,eAAA;EACA,qBAAA;EACA,sBAAA;EACA,kBAAA;EACA,wBAAA;AAHJ","sourcesContent":[".bookmarkContainer {\n  background-color: tan;\n  border: 1px solid #ddd;\n  padding: 1rem;\n  border-radius: 5px;\n  margin-bottom: 1rem;\n  text-align: left;\n  font-size: 1.1rem;\n\n  .titleWithIcon {\n    display: flex;\n    align-items: left;\n    justify-content: left; \n  }\n\n  .bookmarkIcon {\n    width: 30px; \n    height: 30px;  \n  }\n\n  .button {\n    background-color: black;\n    color: tan;\n    padding: 0.5rem 1rem;\n    border: none;\n    border-radius: 5px;\n    cursor: pointer;\n    text-decoration: none;\n    display: inline-block;\n    margin: 0.5rem;\n    font-size: 1rem;\n\n    &:hover {\n      background-color: darken(#4d4319, 10%);\n    }\n  }\n\n  .input {\n    padding: 0.5rem;\n    margin-bottom: 0.5rem; \n    border: 1px solid #ccc;\n    border-radius: 5px;\n    width: calc(100% - 1rem); \n  }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/components/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACE,qBAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,gBAAA;EACA,iBAAA;EACA,uBAAA;EACA,mBAAA;AACF;AACE;EACE,aAAA;EACA,iBAAA;EACA,qBAAA;AACJ;AAEE;EACE,WAAA;EACA,YAAA;AAAJ;AAGE;EACE,uBAAA;EACA,UAAA;EACA,oBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,qBAAA;EACA,cAAA;EACA,eAAA;AADJ;AAGI;EACE,yBAAA;AADN;AAKE;EACE,eAAA;EACA,qBAAA;EACA,sBAAA;EACA,kBAAA;EACA,wBAAA;AAHJ","sourcesContent":[".bookmarkContainer {\n  background-color: tan;\n  padding: 1rem;\n  border-radius: 5px;\n  margin-bottom: 1rem;\n  text-align: left;\n  font-size: 1.1rem;\n  border: 8px solid black;\n  border-style: inset;\n\n  .titleWithIcon {\n    display: flex;\n    align-items: left;\n    justify-content: left; \n  }\n\n  .bookmarkIcon {\n    width: 35px; \n    height: 35px;\n  }\n\n  .button {\n    background-color: black;\n    color: tan;\n    padding: 0.5rem 1rem;\n    border: none;\n    border-radius: 5px;\n    cursor: pointer;\n    text-decoration: none;\n    display: inline-block;\n    margin: 0.5rem;\n    font-size: 1rem;\n\n    &:hover {\n      background-color: darken(#4d4319, 10%);\n    }\n  }\n\n  .input {\n    padding: 0.5rem;\n    margin-bottom: 0.5rem; \n    border: 1px solid #ccc;\n    border-radius: 5px;\n    width: calc(100% - 1rem); \n  }\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"bookmarkContainer": `k6ypUdZIToQcx5q02lTg`,
@@ -439,6 +440,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   text-align: center;
   padding-left: 3rem;
+  margin-bottom: 1rem;
 }
 
 .cV6U8lCaS0lWz2KLekVQ {
@@ -446,12 +448,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   align-items: center;
   justify-content: center;
   position: relative;
+  animation: AHJca_24Sc08daa9niO1 1.2s ease-out forwards;
 }
 
 .YH7xdljdtDlmwBgdPP0d {
   width: 7rem;
   height: 7rem;
   padding-left: 1rem;
+  margin-top: 2.2rem;
+}
+.YH7xdljdtDlmwBgdPP0d:hover {
+  animation: lwBf5lhpubIk3TxuNBLB 2s ease forwards infinite;
 }
 
 .tZLRAyOJvWQtFoUkUHln {
@@ -463,6 +470,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   box-sizing: border-box;
   background-color: tan;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  border: 4px solid black;
+  border-radius: 6px;
 }
 
 .lIbtNV92GIuH1Of0iqPT {
@@ -493,6 +502,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   margin-bottom: -1px;
 }
 
+h3 {
+  text-align: left;
+  margin-top: 0.5rem;
+}
+
 .C22zoUMKQswkthhLnKaF {
   width: 100%;
   margin-top: 20px;
@@ -500,12 +514,38 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   padding: 10px;
   box-sizing: border-box;
   border-radius: 8px;
-  background-color: #000000;
-}`, "",{"version":3,"sources":["webpack://./src/components/ListOfBookmarks/BookmarkList.module.scss"],"names":[],"mappings":"AAAA;EACE,iBAAA;EACA,qGAAA;EACA,kBAAA;EACA,kBAAA;AACF;;AACA;EACE,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;AAEF;;AACA;EACE,WAAA;EACA,YAAA;EACA,kBAAA;AAEF;;AACA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,qBAAA;EACA,qGAAA;AAEF;;AACA;EACE,aAAA;EACA,uBAAA;EACA,WAAA;AAEF;;AACA;EACE,aAAA;EACA,sBAAA;EACA,cAAA;AAEF;;AACA;EACE,YAAA;EACA,aAAA;EACA,kBAAA;AAEF;;AACA;EACE,eAAA;EACA,mBAAA;AAEF;;AACA;EACE,eAAA;EACA,mBAAA;AAEF;;AACA;EACE,WAAA;EACA,gBAAA;EACA,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,kBAAA;EACA,yBAAA;AAEF","sourcesContent":["h1 {\n  font-size: 4.5rem;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n  text-align: center; \n  padding-left: 3rem;\n}\n.headerContainer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n}\n\n.bookmarkIcon {\n  width: 7rem; \n  height: 7rem;\n  padding-left: 1rem;\n}\n\n.container {\n  display: flex;\n  flex-direction: column; \n  align-items: center; \n  width: 100%; \n  padding: 10px;\n  box-sizing: border-box;\n  background-color: tan;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n}\n\n.inputContainer {\n  display: flex;\n  justify-content: center; \n  width: 100%; \n}\n\n.titleContainer, .urlContainer {\n  display: flex;\n  flex-direction: column;\n  margin: 0 10px; \n}\n\n.input {\n  padding: 8px;\n  margin: 5px 0; \n  border-radius: 4px;\n}\n\n.siteName {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\n.siteUrl {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\n.bookmarksContainer {\n  width: 100%; \n  margin-top: 20px; \n  text-align: center; \n  padding: 10px;\n  box-sizing: border-box;\n  border-radius: 8px;\n  background-color: #000000;\n}"],"sourceRoot":""}]);
+}
+
+@keyframes AHJca_24Sc08daa9niO1 {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes lwBf5lhpubIk3TxuNBLB {
+  0% {
+    transform: scale(1);
+    color: #000;
+  }
+  50% {
+    transform: scale(1.1);
+    color: tan;
+  }
+  100% {
+    transform: scale(1);
+    color: #000;
+  }
+}`, "",{"version":3,"sources":["webpack://./src/components/ListOfBookmarks/BookmarkList.module.scss"],"names":[],"mappings":"AAAA;EACE,iBAAA;EACA,qGAAA;EACA,kBAAA;EACA,kBAAA;EACA,mBAAA;AACF;;AACA;EACE,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;EACA,sDAAA;AAEF;;AACA;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;AAEF;AADE;EACE,yDAAA;AAGJ;;AACA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,qBAAA;EACA,qGAAA;EACA,uBAAA;EACA,kBAAA;AAEF;;AACA;EACE,aAAA;EACA,uBAAA;EACA,WAAA;AAEF;;AACA;EACE,aAAA;EACA,sBAAA;EACA,cAAA;AAEF;;AACA;EACE,YAAA;EACA,aAAA;EACA,kBAAA;AAEF;;AACA;EACE,eAAA;EACA,mBAAA;AAEF;;AACA;EACE,eAAA;EACA,mBAAA;AAEF;;AACA;EACE,gBAAA;EACA,kBAAA;AAEF;;AACA;EACE,WAAA;EACA,gBAAA;EACA,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,kBAAA;AAEF;;AACA;EACE;IACE,UAAA;IACA,4BAAA;EAEF;EAAA;IACE,UAAA;IACA,wBAAA;EAEF;AACF;AACA;EACE;IACE,mBAAA;IACA,WAAA;EACF;EACA;IACE,qBAAA;IACA,UAAA;EACF;EACA;IACE,mBAAA;IACA,WAAA;EACF;AACF","sourcesContent":["h1 {\n  font-size: 4.5rem;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n  text-align: center; \n  padding-left: 3rem;\n  margin-bottom: 1rem;\n}\n.headerContainer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  animation: fadeDown 1.2s ease-out forwards;\n}\n\n.bookmarkIcon {\n  width: 7rem; \n  height: 7rem;\n  padding-left: 1rem;\n  margin-top: 2.2rem;\n  &:hover {\n    animation: pulse 2s ease forwards infinite;\n  }\n}\n\n.container {\n  display: flex;\n  flex-direction: column; \n  align-items: center; \n  width: 100%; \n  padding: 10px;\n  box-sizing: border-box;\n  background-color: tan;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n  border: 4px solid black;\n  border-radius: 6px;\n}\n\n.inputContainer {\n  display: flex;\n  justify-content: center; \n  width: 100%; \n}\n\n.titleContainer, .urlContainer {\n  display: flex;\n  flex-direction: column;\n  margin: 0 10px; \n}\n\n.input {\n  padding: 8px;\n  margin: 5px 0; \n  border-radius: 4px;\n}\n\n.siteName {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\n.siteUrl {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\nh3 {\n  text-align: left; \n  margin-top: .5rem;\n}\n\n.bookmarksContainer {\n  width: 100%; \n  margin-top: 20px; \n  text-align: center; \n  padding: 10px;\n  box-sizing: border-box;\n  border-radius: 8px;\n}\n\n@keyframes fadeDown {\n  from {\n    opacity: 0;\n    transform: translateY(-15px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n    color: #000; \n  }\n  50% {\n    transform: scale(1.1);\n    color: tan; \n  }\n  100% {\n    transform: scale(1);\n    color: #000; \n  }\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"headerContainer": `cV6U8lCaS0lWz2KLekVQ`,
+	"fadeDown": `AHJca_24Sc08daa9niO1`,
 	"bookmarkIcon": `YH7xdljdtDlmwBgdPP0d`,
+	"pulse": `lwBf5lhpubIk3TxuNBLB`,
 	"container": `tZLRAyOJvWQtFoUkUHln`,
 	"inputContainer": `lIbtNV92GIuH1Of0iqPT`,
 	"titleContainer": `KZyuchRv7BkzFEXXK0BL`,
@@ -850,4 +890,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.aa1f1e1ffdca0eca0c34fde315eb3c8b.js.map
+//# sourceMappingURL=App.24ca1a44575a9aaa815a3fd77f1c843a.js.map

@@ -1,11 +1,12 @@
 .bookmarkContainer {
   background-color: tan;
-  border: 1px solid #ddd;
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
   text-align: left;
   font-size: 1.1rem;
+  border: 8px solid black;
+  border-style: inset;
 
   .titleWithIcon {
     display: flex;
@@ -14,8 +15,8 @@
   }
 
   .bookmarkIcon {
-    width: 30px; 
-    height: 30px;  
+    width: 35px; 
+    height: 35px;
   }
 
   .button {
