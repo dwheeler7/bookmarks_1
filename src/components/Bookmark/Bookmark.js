@@ -10,7 +10,7 @@ const Bookmark = ({ bookmark, deleteBookmark }) => {
     const goButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Globe-2-512.png'
     const editButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Compose-2-512.png'
     const deleteButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Close-2-512.png'
-    const saveButtonIconUrl = 'https://www.shareicon.net/data/2016/03/27/465731_save_256x256.png'
+    const saveButtonIconUrl = 'https://cdn0.iconfinder.com/data/icons/ie_Bright/512/disk_save.png'
 
     return (
         <div className={styles.bookmarkContainer}>
@@ -26,8 +26,8 @@ const Bookmark = ({ bookmark, deleteBookmark }) => {
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                     />
-                    <button className={styles.button} onClick={() => setEditMode(false)}>
-                        <img src={saveButtonIconUrl} alt="Save" style={{width: '15px', height: '15px'}} />
+                    <button className={styles.saveButton} onClick={() => setEditMode(false)}>
+                        <img src={saveButtonIconUrl} alt="Save" style={{width: '20px', height: '20px'}} />
                     </button>
                 </>
             ) : (

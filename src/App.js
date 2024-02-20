@@ -3,8 +3,8 @@ import BookmarkList from './components/ListOfBookmarks/BookmarkList'
 import styles from './App.module.scss'
 
 export default function App() {
-    const [bookmarks, setBookmarks] = useState([]);
-    const [newBookmark, setNewBookmark] = useState({ title: '', url: '' });
+    const [bookmarks, setBookmarks] = useState([])
+    const [newBookmark, setNewBookmark] = useState({ title: '', url: '' })
 
     const createBookmark = async () => {
         const body = { ...newBookmark }
@@ -23,10 +23,6 @@ export default function App() {
         } catch (error) {
             console.error('Failed to create bookmark:', error)
         }
-    }
-
-    const updateBookmark = async (id, bookmarkToUpdate) => {
-
     }
 
     const deleteBookmark = async (id) => {
@@ -68,7 +64,6 @@ export default function App() {
                 setNewBookmark={setNewBookmark}
                 createBookmark={createBookmark}
                 bookmarks={bookmarks}
-                updateBookmark={updateBookmark}
                 deleteBookmark={deleteBookmark}
             />
         </div>
