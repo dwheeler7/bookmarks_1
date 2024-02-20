@@ -10,6 +10,7 @@ export default function BookmarkList({
     setNewBookmark,
     bookmarks,
     deleteBookmark,
+    updateBookmark
 }) {
     function handleCreateBookmark() {
         if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
@@ -62,6 +63,7 @@ export default function BookmarkList({
                                 key={bookmark._id}
                                 bookmark={bookmark}
                                 deleteBookmark={deleteBookmark}
+                                updateBookmark={updateBookmark}
                             />
                         ))
                     ) : (

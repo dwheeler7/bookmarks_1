@@ -40,7 +40,7 @@ function App() {
         },
         body: JSON.stringify(body)
       });
-      if (!response.ok) throw new Error('Network response was not ok');
+      if (!response.ok) throw new Error('Bad response');
       const createdBookmark = await response.json();
       setBookmarks(prevBookmarks => [createdBookmark, ...prevBookmarks]);
       setNewBookmark({
@@ -48,9 +48,10 @@ function App() {
         url: ''
       });
     } catch (error) {
-      console.error('Failed to create bookmark:', error);
+      console.error('Failed', error);
     }
   };
+  const updateBookmark = async (id, bookmarkToUpdate) => {};
   const deleteBookmark = async id => {
     try {
       const response = await fetch("/api/bookmarks/".concat(id), {
@@ -60,21 +61,21 @@ function App() {
         }
       });
       if (!response.ok) {
-        throw new Error("Failed to delete bookmark with id ".concat(id, ": ").concat(response.statusText));
+        throw new Error("Failed to delete ".concat(id, ": ").concat(response.statusText));
       }
       setBookmarks(prevBookmarks => prevBookmarks.filter(bookmark => bookmark._id !== id));
     } catch (error) {
-      console.error('Error deleting bookmark:', error);
+      console.error('Error deleting', error);
     }
   };
   const getBookmarks = async () => {
     try {
       const response = await fetch('/api/bookmarks');
-      if (!response.ok) throw new Error('Network response was not ok');
+      if (!response.ok) throw new Error('Bad response');
       const data = await response.json();
       setBookmarks(data.reverse());
     } catch (error) {
-      console.error('Failed to fetch bookmarks:', error);
+      console.error('Failed to fetch', error);
     }
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -87,6 +88,7 @@ function App() {
     setNewBookmark: setNewBookmark,
     createBookmark: createBookmark,
     bookmarks: bookmarks,
+    updateBookmark: updateBookmark,
     deleteBookmark: deleteBookmark
   }));
 }
@@ -212,7 +214,8 @@ function BookmarkList(_ref) {
     createBookmark,
     setNewBookmark,
     bookmarks,
-    deleteBookmark
+    deleteBookmark,
+    updateBookmark
   } = _ref;
   function handleCreateBookmark() {
     if (newBookmark.title && newBookmark.url && newBookmark.url !== 'http://' && newBookmark.url !== 'https://') {
@@ -266,7 +269,8 @@ function BookmarkList(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "MY SITES"), bookmarks.length > 0 ? bookmarks.map(bookmark => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Bookmark_Bookmark__WEBPACK_IMPORTED_MODULE_2__["default"], {
     key: bookmark._id,
     bookmark: bookmark,
-    deleteBookmark: deleteBookmark
+    deleteBookmark: deleteBookmark,
+    updateBookmark: updateBookmark
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "You dont have any bookmarks yet."))));
 }
 
@@ -316,28 +320,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   flex-direction: column;
   align-items: center;
   background-color: tan;
-}
-
-.KTmxx2sH00E53HXHCND1 {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.KTmxx2sH00E53HXHCND1 img {
-  width: 50%;
-  max-height: 300px;
-}
-.KTmxx2sH00E53HXHCND1 h1 {
-  width: 100%;
-  text-align: center;
-  color: rgba(23, 5, 58, 0.8);
-}`, "",{"version":3,"sources":["webpack://./src/App.module.scss"],"names":[],"mappings":"AAAA;EACI,SAAA;EACA,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,qBAAA;AACJ;;AAEA;EACI,WAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,sBAAA;AACJ;AAAI;EACI,UAAA;EACA,iBAAA;AAER;AAAI;EACI,WAAA;EACA,kBAAA;EACA,2BAAA;AAER","sourcesContent":["body {\n    margin: 0;\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    background-color: tan;\n}\n\n.banner{\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    flex-direction: column;\n    img {\n        width: 50%;\n        max-height: 300px;\n    }\n    h1 {\n        width: 100%;\n        text-align: center;\n        color: rgba(23,5, 58, 0.8);\n    }\n}\n"],"sourceRoot":""}]);
+  margin: 0.5rem;
+  padding: 1rem;
+  border: 4px solid black;
+  border-radius: 6px;
+}`, "",{"version":3,"sources":["webpack://./src/App.module.scss"],"names":[],"mappings":"AAAA;EACI,SAAA;EACA,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,qBAAA;EACA,cAAA;EACA,aAAA;EACA,uBAAA;EACA,kBAAA;AACJ","sourcesContent":["body {\n    margin: 0;\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    background-color: tan;\n    margin: .5rem;\n    padding: 1rem;\n    border: 4px solid black;\n    border-radius: 6px;\n}\n\n"],"sourceRoot":""}]);
 // Exports
-___CSS_LOADER_EXPORT___.locals = {
-	"banner": `KTmxx2sH00E53HXHCND1`
-};
+___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
@@ -477,6 +466,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   text-align: center;
   padding-left: 3rem;
   margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px #2e2e2e;
 }
 
 .cV6U8lCaS0lWz2KLekVQ {
@@ -484,6 +474,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-top: -2rem;
   animation: AHJca_24Sc08daa9niO1 1.2s ease-out forwards;
 }
 
@@ -506,8 +497,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   box-sizing: border-box;
   background-color: tan;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  border: 4px solid black;
   border-radius: 6px;
+  text-shadow: 0px 0.2px 0.5px #2e2e2e;
 }
 
 .lIbtNV92GIuH1Of0iqPT {
@@ -575,7 +566,7 @@ h3 {
     transform: scale(1);
     color: #000;
   }
-}`, "",{"version":3,"sources":["webpack://./src/components/ListOfBookmarks/BookmarkList.module.scss"],"names":[],"mappings":"AAAA;EACE,iBAAA;EACA,qGAAA;EACA,kBAAA;EACA,kBAAA;EACA,mBAAA;AACF;;AACA;EACE,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;EACA,sDAAA;AAEF;;AACA;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;AAEF;AADE;EACE,yDAAA;AAGJ;;AACA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,qBAAA;EACA,qGAAA;EACA,uBAAA;EACA,kBAAA;AAEF;;AACA;EACE,aAAA;EACA,uBAAA;EACA,WAAA;AAEF;;AACA;EACE,aAAA;EACA,sBAAA;EACA,cAAA;AAEF;;AACA;EACE,YAAA;EACA,aAAA;EACA,kBAAA;AAEF;;AACA;EACE,eAAA;EACA,mBAAA;AAEF;;AACA;EACE,eAAA;EACA,mBAAA;AAEF;;AACA;EACE,gBAAA;EACA,kBAAA;AAEF;;AACA;EACE,WAAA;EACA,gBAAA;EACA,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,kBAAA;AAEF;;AACA;EACE;IACE,UAAA;IACA,4BAAA;EAEF;EAAA;IACE,UAAA;IACA,wBAAA;EAEF;AACF;AACA;EACE;IACE,mBAAA;IACA,WAAA;EACF;EACA;IACE,qBAAA;IACA,UAAA;EACF;EACA;IACE,mBAAA;IACA,WAAA;EACF;AACF","sourcesContent":["h1 {\n  font-size: 4.5rem;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n  text-align: center; \n  padding-left: 3rem;\n  margin-bottom: 1rem;\n}\n.headerContainer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  animation: fadeDown 1.2s ease-out forwards;\n}\n\n.bookmarkIcon {\n  width: 7rem; \n  height: 7rem;\n  padding-left: 1rem;\n  margin-top: 2.2rem;\n  &:hover {\n    animation: pulse 2s ease forwards infinite;\n  }\n}\n\n.container {\n  display: flex;\n  flex-direction: column; \n  align-items: center; \n  width: 100%; \n  padding: 10px;\n  box-sizing: border-box;\n  background-color: tan;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n  border: 4px solid black;\n  border-radius: 6px;\n}\n\n.inputContainer {\n  display: flex;\n  justify-content: center; \n  width: 100%; \n}\n\n.titleContainer, .urlContainer {\n  display: flex;\n  flex-direction: column;\n  margin: 0 10px; \n}\n\n.input {\n  padding: 8px;\n  margin: 5px 0; \n  border-radius: 4px;\n}\n\n.siteName {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\n.siteUrl {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\nh3 {\n  text-align: left; \n  margin-top: .5rem;\n}\n\n.bookmarksContainer {\n  width: 100%; \n  margin-top: 20px; \n  text-align: center; \n  padding: 10px;\n  box-sizing: border-box;\n  border-radius: 8px;\n}\n\n@keyframes fadeDown {\n  from {\n    opacity: 0;\n    transform: translateY(-15px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n    color: #000; \n  }\n  50% {\n    transform: scale(1.1);\n    color: tan; \n  }\n  100% {\n    transform: scale(1);\n    color: #000; \n  }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/components/ListOfBookmarks/BookmarkList.module.scss"],"names":[],"mappings":"AAAA;EACE,iBAAA;EACA,qGAAA;EACA,kBAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AACF;;AACA;EACE,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;EACA,iBAAA;EACA,sDAAA;AAEF;;AACA;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;AAEF;AADE;EACE,yDAAA;AAGJ;;AACA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,qBAAA;EACA,qGAAA;EAEA,kBAAA;EACA,oCAAA;AACF;;AAEA;EACE,aAAA;EACA,uBAAA;EACA,WAAA;AACF;;AAEA;EACE,aAAA;EACA,sBAAA;EACA,cAAA;AACF;;AAEA;EACE,YAAA;EACA,aAAA;EACA,kBAAA;AACF;;AAEA;EACE,eAAA;EACA,mBAAA;AACF;;AAEA;EACE,eAAA;EACA,mBAAA;AACF;;AAEA;EACE,gBAAA;EACA,kBAAA;AACF;;AAEA;EACE,WAAA;EACA,gBAAA;EACA,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,kBAAA;AACF;;AAEA;EACE;IACE,UAAA;IACA,4BAAA;EACF;EACA;IACE,UAAA;IACA,wBAAA;EACF;AACF;AAEA;EACE;IACE,mBAAA;IACA,WAAA;EAAF;EAEA;IACE,qBAAA;IACA,UAAA;EAAF;EAEA;IACE,mBAAA;IACA,WAAA;EAAF;AACF","sourcesContent":["h1 {\n  font-size: 4.5rem;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n  text-align: center; \n  padding-left: 3rem;\n  margin-bottom: 1rem;\n  text-shadow: 1px 1px 2px #2e2e2e;\n}\n.headerContainer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  margin-top: -2rem;\n  animation: fadeDown 1.2s ease-out forwards;\n}\n\n.bookmarkIcon {\n  width: 7rem; \n  height: 7rem;\n  padding-left: 1rem;\n  margin-top: 2.2rem;\n  &:hover {\n    animation: pulse 2s ease forwards infinite;\n  }\n}\n\n.container {\n  display: flex;\n  flex-direction: column; \n  align-items: center; \n  width: 100%; \n  padding: 10px;\n  box-sizing: border-box;\n  background-color: tan;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n\n  border-radius: 6px;\n  text-shadow: 0px .2px .5px #2e2e2e;\n}\n\n.inputContainer {\n  display: flex;\n  justify-content: center; \n  width: 100%; \n}\n\n.titleContainer, .urlContainer {\n  display: flex;\n  flex-direction: column;\n  margin: 0 10px; \n}\n\n.input {\n  padding: 8px;\n  margin: 5px 0; \n  border-radius: 4px;\n}\n\n.siteName {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\n.siteUrl {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\nh3 {\n  text-align: left; \n  margin-top: .5rem;\n}\n\n.bookmarksContainer {\n  width: 100%; \n  margin-top: 20px; \n  text-align: center; \n  padding: 10px;\n  box-sizing: border-box;\n  border-radius: 8px;\n}\n\n@keyframes fadeDown {\n  from {\n    opacity: 0;\n    transform: translateY(-15px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n    color: #000; \n  }\n  50% {\n    transform: scale(1.1);\n    color: tan; \n  }\n  100% {\n    transform: scale(1);\n    color: #000; \n  }\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"headerContainer": `cV6U8lCaS0lWz2KLekVQ`,
@@ -926,4 +917,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.99e4270f6c661391a728ff80b8c5cd80.js.map
+//# sourceMappingURL=App.274463cfd1695ccf08c858454cb244a8.js.map

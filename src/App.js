@@ -16,13 +16,17 @@ export default function App() {
                 },
                 body: JSON.stringify(body),
             });
-            if (!response.ok) throw new Error('Network response was not ok')
+            if (!response.ok) throw new Error('Bad response')
             const createdBookmark = await response.json()
             setBookmarks((prevBookmarks) => [createdBookmark, ...prevBookmarks])
             setNewBookmark({ title: '', url: '' })
         } catch (error) {
-            console.error('Failed to create bookmark:', error)
+            console.error('Failed', error)
         }
+    }
+
+    const updateBookmark = async (id, bookmarkToUpdate) => {
+
     }
 
     const deleteBookmark = async (id) => {
@@ -34,22 +38,22 @@ export default function App() {
                 },
             })
             if (!response.ok) {
-                throw new Error(`Failed to delete bookmark with id ${id}: ${response.statusText}`)
+                throw new Error(`Failed to delete ${id}: ${response.statusText}`)
             }
             setBookmarks(prevBookmarks => prevBookmarks.filter(bookmark => bookmark._id !== id))
         } catch (error) {
-            console.error('Error deleting bookmark:', error)
+            console.error('Error deleting', error)
         }
     }
 
     const getBookmarks = async () => {
         try {
             const response = await fetch('/api/bookmarks')
-            if (!response.ok) throw new Error('Network response was not ok')
+            if (!response.ok) throw new Error('Bad response')
             const data = await response.json()
             setBookmarks(data.reverse())
         } catch (error) {
-            console.error('Failed to fetch bookmarks:', error)
+            console.error('Failed to fetch', error)
         }
     };
 
@@ -64,6 +68,7 @@ export default function App() {
                 setNewBookmark={setNewBookmark}
                 createBookmark={createBookmark}
                 bookmarks={bookmarks}
+                updateBookmark={updateBookmark}
                 deleteBookmark={deleteBookmark}
             />
         </div>
