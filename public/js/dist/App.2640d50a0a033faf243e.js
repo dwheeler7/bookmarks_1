@@ -118,9 +118,9 @@ const Bookmark = _ref => {
   const [title, setTitle] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.title);
   const [url, setUrl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.url);
   const bookmarkIconUrl = 'https://endlessicons.com/wp-content/uploads/2014/03/bookmark-icon-1-614x460.png';
-  const goButtonIconUrl = 'https://icon-library.com/images/web-icon-white/web-icon-white-3.jpg';
-  const editButtonIconUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVjetlSgB26ELwRMOjU_VK8mS7omWKw6l7gA&usqp=CAU';
-  const deleteButtonIconUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWzoRCh_PQk071FDkYGNb9lHBkl8T5QaV2F9USxLqmEw&s';
+  const goButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Globe-2-512.png';
+  const editButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Compose-2-512.png';
+  const deleteButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Close-2-512.png';
   const saveButtonIconUrl = 'https://www.shareicon.net/data/2016/03/27/465731_save_256x256.png';
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].bookmarkContainer
@@ -148,15 +148,17 @@ const Bookmark = _ref => {
     src: bookmarkIconUrl,
     alt: "Bookmark Icon",
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].bookmarkIcon
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].buttonContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
     onClick: () => window.open(url, '_blank', 'noopener,noreferrer')
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: goButtonIconUrl,
     alt: "Go",
     style: {
-      width: '15px',
-      height: '15px'
+      width: '20px',
+      height: '20px'
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
@@ -165,8 +167,8 @@ const Bookmark = _ref => {
     src: editButtonIconUrl,
     alt: "Edit",
     style: {
-      width: '15px',
-      height: '15px'
+      width: '20px',
+      height: '20px'
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].button,
@@ -175,10 +177,10 @@ const Bookmark = _ref => {
     src: deleteButtonIconUrl,
     alt: "Delete",
     style: {
-      width: '15px',
-      height: '15px'
+      width: '20px',
+      height: '20px'
     }
-  }))));
+  })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Bookmark);
 
@@ -269,7 +271,7 @@ function BookmarkList(_ref) {
     bookmark: bookmark,
     deleteBookmark: deleteBookmark,
     updateBookmark: updateBookmark
-  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "No bookmarks added yet."))));
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "You dont have any bookmarks yet."))));
 }
 
 /***/ }),
@@ -364,38 +366,54 @@ ___CSS_LOADER_EXPORT___.locals = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.k6ypUdZIToQcx5q02lTg {
-  background-color: tan;
+  background-color: rgba(210, 180, 140, 0.92);
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
   text-align: left;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   border: 8px solid black;
   border-style: inset;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 .k6ypUdZIToQcx5q02lTg ._5T_mzJtpwzfnwKchHpU {
   display: flex;
-  align-items: left;
+  align-items: center;
   justify-content: left;
 }
-.k6ypUdZIToQcx5q02lTg .JJV6DZt6e75nPQ0DFMP4 {
+.k6ypUdZIToQcx5q02lTg ._5T_mzJtpwzfnwKchHpU .JJV6DZt6e75nPQ0DFMP4 {
   width: 35px;
   height: 35px;
 }
-.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk {
+.k6ypUdZIToQcx5q02lTg .jPzABAZOS6kPxcKPsPRF {
+  border: 3px solid black;
+  border-radius: 5px;
+  border-style: inset;
+}
+.k6ypUdZIToQcx5q02lTg .jPzABAZOS6kPxcKPsPRF .JSmS6vn316ABbTaYqDzk {
   background-color: black;
   color: tan;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0.5rem;
   font-size: 1rem;
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
 }
-.k6ypUdZIToQcx5q02lTg .JSmS6vn316ABbTaYqDzk:hover {
-  background-color: #27220d;
+.k6ypUdZIToQcx5q02lTg .jPzABAZOS6kPxcKPsPRF .JSmS6vn316ABbTaYqDzk:hover {
+  background-color: #c49c67;
 }
 .k6ypUdZIToQcx5q02lTg .g4QZS3Rxwb17vZ7q0GAi {
   padding: 0.5rem;
@@ -403,12 +421,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.k6ypUdZIToQcx5q02lTg {
   border: 1px solid #ccc;
   border-radius: 5px;
   width: calc(100% - 1rem);
-}`, "",{"version":3,"sources":["webpack://./src/components/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACE,qBAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,gBAAA;EACA,iBAAA;EACA,uBAAA;EACA,mBAAA;AACF;AACE;EACE,aAAA;EACA,iBAAA;EACA,qBAAA;AACJ;AAEE;EACE,WAAA;EACA,YAAA;AAAJ;AAGE;EACE,uBAAA;EACA,UAAA;EACA,oBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,qBAAA;EACA,cAAA;EACA,eAAA;AADJ;AAGI;EACE,yBAAA;AADN;AAKE;EACE,eAAA;EACA,qBAAA;EACA,sBAAA;EACA,kBAAA;EACA,wBAAA;AAHJ","sourcesContent":[".bookmarkContainer {\n  background-color: tan;\n  padding: 1rem;\n  border-radius: 5px;\n  margin-bottom: 1rem;\n  text-align: left;\n  font-size: 1.1rem;\n  border: 8px solid black;\n  border-style: inset;\n\n  .titleWithIcon {\n    display: flex;\n    align-items: left;\n    justify-content: left; \n  }\n\n  .bookmarkIcon {\n    width: 35px; \n    height: 35px;\n  }\n\n  .button {\n    background-color: black;\n    color: tan;\n    padding: 0.5rem 1rem;\n    border: none;\n    border-radius: 5px;\n    cursor: pointer;\n    text-decoration: none;\n    display: inline-block;\n    margin: 0.5rem;\n    font-size: 1rem;\n\n    &:hover {\n      background-color: darken(#4d4319, 10%);\n    }\n  }\n\n  .input {\n    padding: 0.5rem;\n    margin-bottom: 0.5rem; \n    border: 1px solid #ccc;\n    border-radius: 5px;\n    width: calc(100% - 1rem); \n  }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/components/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACE,2CAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,gBAAA;EACA,iBAAA;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;EACA,mBAAA;EACA,mBAAA;EACA,8BAAA;EACA,eAAA;EACA,QAAA;AACF;AACE;EACE,aAAA;EACA,mBAAA;EACA,qBAAA;AACJ;AACI;EACE,WAAA;EACA,YAAA;AACN;AAEA;EACE,uBAAA;EACA,kBAAA;EACA,mBAAA;AAAF;AAIE;EACE,uBAAA;EACA,UAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAAA;EACA,eAAA;EACA,WAAA;EACA,YAAA;EACA,gBAAA;AAFJ;AAII;EACE,yBAAA;AAFN;AAOE;EACE,eAAA;EACA,qBAAA;EACA,sBAAA;EACA,kBAAA;EACA,wBAAA;AALJ","sourcesContent":[".bookmarkContainer {\n  background-color: rgba(210, 180, 140, 0.92);\n  padding: 1rem;\n  border-radius: 5px;\n  margin-bottom: 1rem;\n  text-align: left;\n  font-size: 1.2rem;\n  border: 8px solid black;\n  border-style: inset;\n  display: flex;\n  flex-direction: row; \n  align-items: center; \n  justify-content: space-between; \n  flex-wrap: wrap; \n  gap: 5px;\n\n  .titleWithIcon {\n    display: flex;\n    align-items: center;\n    justify-content: left;\n\n    .bookmarkIcon {\n      width: 35px; \n      height: 35px;\n  }\n}\n.buttonContainer {\n  border: 3px solid black;\n  border-radius: 5px;\n  border-style: inset;\n  \n\n\n  .button {\n    background-color: black;\n    color: tan;\n    padding: 0.5rem .5rem;\n    border: none;\n    border-radius: 5px;\n    cursor: pointer;\n    text-decoration: none;\n    display: flex; \n    align-items: center;\n    justify-content: center;\n    margin: 0.5rem;\n    font-size: 1rem;\n    width: 26px;\n    height: 26px;\n    overflow: hidden;\n\n    &:hover {\n      background-color: darken(tan, 10%);\n    }\n  }\n}\n\n  .input {\n    padding: 0.5rem;\n    margin-bottom: 0.5rem; \n    border: 1px solid #ccc;\n    border-radius: 5px;\n    width: calc(100% - 1rem); \n  }\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"bookmarkContainer": `k6ypUdZIToQcx5q02lTg`,
 	"titleWithIcon": `_5T_mzJtpwzfnwKchHpU`,
 	"bookmarkIcon": `JJV6DZt6e75nPQ0DFMP4`,
+	"buttonContainer": `jPzABAZOS6kPxcKPsPRF`,
 	"button": `JSmS6vn316ABbTaYqDzk`,
 	"input": `g4QZS3Rxwb17vZ7q0GAi`
 };
@@ -890,4 +909,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.24ca1a44575a9aaa815a3fd77f1c843a.js.map
+//# sourceMappingURL=App.09c3d7e3aaf7af521fa3fbaf5d5657d9.js.map

@@ -67,7 +67,7 @@ export default function BookmarkList({
                             />
                         ))
                     ) : (
-                        <p>No bookmarks added yet.</p>
+                        <p>You dont have any bookmarks yet.</p>
                     )}
                 </div>
             </div>
